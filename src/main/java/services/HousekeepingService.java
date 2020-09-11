@@ -12,7 +12,7 @@ public final class HousekeepingService {
         this.roomService = roomService;
         this.adminService = adminService;
 
-        System.out.println("Created Housekeeping Service");
+        System.out.println("Created housekeeping Service");
     }
 
     public void cleanRooms() {
@@ -24,5 +24,13 @@ public final class HousekeepingService {
         }
 
         System.out.println("All rooms are clean");
+    }
+
+    @Override
+    public String toString() {
+        return "HousekeepingService{" +
+                "roomService=" + roomService +
+                ", adminService=" + adminService +
+                '}';
     }
 }

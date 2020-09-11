@@ -5,8 +5,7 @@ import java.util.UUID;
 
 public final class HotelClient {
     private final Long clientId;
-    private String name;
-    private static long countId = 0;
+    private final String name;
 
     public HotelClient(String name) {
         this.name = name;
@@ -17,14 +16,6 @@ public final class HotelClient {
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public String toString() {
-        return "HotelClient{" +
-                "clientId=" + clientId +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     @Override
@@ -39,5 +30,13 @@ public final class HotelClient {
     @Override
     public int hashCode() {
         return Objects.hash(clientId, getName());
+    }
+
+    @Override
+    public String toString() {
+        return "HotelClient{" +
+                "clientId=" + clientId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

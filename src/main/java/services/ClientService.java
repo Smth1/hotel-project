@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ClientService {
-    private List<HotelClient> clients;
+    private final List<HotelClient> clients;
 
     public ClientService() {
         clients = new ArrayList<>();
@@ -22,5 +22,12 @@ public final class ClientService {
 
     public List<HotelClient> getClients() {
         return clients;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientService{" +
+                "clients=" + this.getClients() +
+                '}';
     }
 }

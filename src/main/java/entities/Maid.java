@@ -1,28 +1,20 @@
 package entities;
 
 import java.util.Objects;
-import java.util.UUID;
 
-public final class Maid extends Employer {
-    private Long id;
+public final class Maid extends Employee {
 
-
-    public Maid(String name) {
-        this.name = name;
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    public Maid(String name, int age) {
+        super(name, age);
 
         System.out.printf("%-30s %15s \n","Maid with name " + name, " got a job");
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @Override
     public String toString() {
         return "Maid{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + super.getId() +
+                ", name='" + super.getName() + '\'' +
                 '}';
     }
 
@@ -31,11 +23,11 @@ public final class Maid extends Employer {
         if (this == o) return true;
         if (!(o instanceof Maid)) return false;
         Maid maid = (Maid) o;
-        return id.equals(maid.id);
+        return super.getId().equals(maid.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(super.getId());
     }
 }

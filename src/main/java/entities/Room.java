@@ -1,13 +1,11 @@
 package entities;
 
-import services.AdminService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public final class Room {
-    private List<HotelClient> homeClients;
+    private final List<HotelClient> homeClients;
     private final int number;
     private final int clientNumber;
     private boolean isClean;
@@ -29,10 +27,6 @@ public final class Room {
         homeClients.add(client);
         if (homeClients.size() == this.clientNumber)
             this.isFree = false;
-    }
-
-    public void moveOutClient(HotelClient client) {
-
     }
 
     public int getNumber() {
@@ -58,8 +52,10 @@ public final class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "number=" + number +
-                ", clientNumber=" + clientNumber +
+                "number=" + this.getNumber() +
+                ", clientNumber=" + this.getClientNumber() +
+                ", isClean=" + this.isClean() +
+                ", isFree=" + this.isFree() +
                 '}';
     }
 }

@@ -8,7 +8,7 @@ public class Application {
     private static final String delimiter = "....................------------------------......................";
 
     public static void main(String... args) {
-
+        System.out.println("Hotel started its work\n" + delimiter);
 
         System.out.println("\nCreating hotel rooms \n" + delimiter);
         Room room1 = new Room(1,2);
@@ -17,10 +17,10 @@ public class Application {
         Room room4 = new Room(4,3);
 
         System.out.println("\nCreating hotel staff \n" +  delimiter);
-        Employer admin = new Administrator("George");
-        Employer porter = new Porter("Jack");
-        Employer maid = new Maid("Amelia");
-        Employer cashier = new Cashier("Ella");
+        Employee admin = new Administrator("George", 34, "+380-635-5561-48");
+        Employee porter = new Porter("Jack", 25);
+        Employee maid = new Maid("Amelia", 39);
+        Employee cashier = new Cashier("Ella", 30);
 
         System.out.println("\nCreating hotel services \n" + delimiter);
         AdminService adminService = new AdminService((Administrator)admin);

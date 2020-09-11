@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class RoomService {
-    private List<Room> rooms;
+    private final List<Room> rooms;
 
     public RoomService() {
         rooms = new ArrayList<>();
@@ -17,6 +17,7 @@ public final class RoomService {
 
     public void addRoom(Room room) {
         rooms.add(room);
+
         System.out.println("Added room: " + room);
     }
 
@@ -46,5 +47,12 @@ public final class RoomService {
 
     public void settleClient(HotelClient client, Room room) {
         room.addClient(client);
+    }
+
+    @Override
+    public String toString() {
+        return "RoomService{" +
+                "rooms=" + rooms +
+                '}';
     }
 }

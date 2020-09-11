@@ -1,21 +1,24 @@
 package entities;
 
-import java.util.UUID;
+public final class Administrator extends Employee {
+    private final String telephoneNumber;
 
-public final class Administrator extends Employer {
-    private final Long id;
-
-    public Administrator(String name) {
-        this.name = name;
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    public Administrator(String name, int age, String telephoneNumber) {
+        super(name, age);
+        this.telephoneNumber = telephoneNumber;
 
         System.out.printf("%-30s %15s \n","Administrator with name " + name, " got a job");
+    }
+
+    public String getTelephoneNumber() {
+        return this.telephoneNumber;
     }
 
     @Override
     public String toString() {
         return "Administrator{" +
-                "name='" + name + '\'' +
+                "name='" + super.getName() + '\'' +
+                "telephoneNumber='" + telephoneNumber + '\'' +
                 '}';
     }
 }

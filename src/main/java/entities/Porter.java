@@ -1,9 +1,9 @@
 package entities;
 
-public final class Porter extends Employer {
+public final class Porter extends Employee {
 
-    public Porter(String name) {
-        this.name = name;
+    public Porter(String name, int age) {
+        super(name, age);
 
         System.out.printf("%-30s %15s \n","Porter with name " + name, " got a job");
     }
@@ -11,7 +11,7 @@ public final class Porter extends Employer {
     @Override
     public String toString() {
         return "Porter{" +
-                "name='" + name + '\'' +
+                "name='" + super.getName() + '\'' +
                 '}';
     }
 }
