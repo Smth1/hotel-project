@@ -10,8 +10,6 @@ public final class HotelClient {
     public HotelClient(String name) {
         this.name = name;
         this.clientId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-
-        System.out.printf("%-30s \n","Created hotel client with name " + name);
     }
 
     public String getName() {

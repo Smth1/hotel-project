@@ -49,9 +49,15 @@ public final class RoomService {
         room.addClient(client);
     }
 
+    public void moveOutClient(HotelClient client) {
+        for (Room room : rooms) {
+            room.removeClient(client);
+        }
+    }
+
     @Override
     public String toString() {
-        return "RoomService{" +
+        return "Hotel rooms{" +
                 "rooms=" + rooms +
                 '}';
     }

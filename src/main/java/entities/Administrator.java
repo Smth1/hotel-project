@@ -6,8 +6,6 @@ public final class Administrator extends Employee {
     public Administrator(String name, int age, String telephoneNumber) {
         super(name, age);
         this.telephoneNumber = telephoneNumber;
-
-        System.out.printf("%-30s %15s \n","Administrator with name " + name, " got a job");
     }
 
     public String getTelephoneNumber() {

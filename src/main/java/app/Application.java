@@ -3,7 +3,9 @@ package app;
 import entities.*;
 import services.*;
 
-public class Application {
+import java.util.List;
+
+public final class Application {
 
     private static final String delimiter = "....................------------------------......................";
 
@@ -27,7 +29,8 @@ public class Application {
         RoomService roomService = new RoomService();
         ClientService clientService = new ClientService();
         HousekeepingService housekeepingService = new HousekeepingService(roomService, adminService);
-        ReceptionService receptionService = new ReceptionService(clientService,roomService);
+        ReceptionService receptionService =
+                new ReceptionService(adminService,clientService,roomService);
 
         System.out.println("\nRooms are added to the service\n" + delimiter);
         roomService.addRoom(room1);
@@ -44,15 +47,43 @@ public class Application {
         System.out.println("\nRooms must be clean before settling");
         housekeepingService.cleanRooms();
 
-        System.out.println("\nClients are at the reception\n" + delimiter);
+
         HotelClient client1 = new HotelClient("Asher");
         HotelClient client2 = new HotelClient("Oliver");
         HotelClient client3 = new HotelClient("Silas");
         HotelClient client4 = new HotelClient("Atticus");
 
+        System.out.println("\nClients are at the reception\n" + delimiter);
         receptionService.serveClient(client1);
         receptionService.serveClient(client2);
         receptionService.serveClient(client3);
         receptionService.serveClient(client4);
+
+        System.out.println("\nCustomer contracts \n" + delimiter);
+        List<HotelClientContract> contracts = clientService.getContracts();
+        for (HotelClientContract contract : contracts) {
+            System.out.println(contract);
+        }
+
+        System.out.println("\nСlients have lived and moving out \n" + delimiter);
+        receptionService.moveOutClient(client2);
+        receptionService.moveOutClient(client1);
+        receptionService.moveOutClient(client3);
+        receptionService.moveOutClient(client4);
+
+        System.out.println("\nRooms must be clean after moving out");
+        housekeepingService.cleanRooms();
+
+        System.out.println("\nAll cleaning reports for this period \n" + delimiter);
+        List<CleaningReport> reports = housekeepingService.getCleaningReports();
+        for (CleaningReport report : reports) {
+            System.out.println(report);
+        }
+
+        System.out.println("\nClosed contracts for this period \n" + delimiter);
+        List<HotelClientContract> closedContracts = clientService.getContracts();
+        for (HotelClientContract contract : closedContracts) {
+            System.out.println(contract);
+        }
     }
 }

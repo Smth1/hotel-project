@@ -19,14 +19,17 @@ public final class Room {
         this.clientNumber = clientNumber;
         this.isFree = true;
         isClean = random.nextBoolean();
-
-        System.out.println("Created room number: " + number + "; There are: " + clientNumber + " places in the room");
     }
 
     public void addClient(HotelClient client) {
         homeClients.add(client);
         if (homeClients.size() == this.clientNumber)
             this.isFree = false;
+    }
+
+    public void removeClient(HotelClient client) {
+        homeClients.remove(client);
+        this.isClean = false;
     }
 
     public int getNumber() {

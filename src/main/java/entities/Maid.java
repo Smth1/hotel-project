@@ -6,8 +6,6 @@ public final class Maid extends Employee {
 
     public Maid(String name, int age) {
         super(name, age);
-
-        System.out.printf("%-30s %15s \n","Maid with name " + name, " got a job");
     }
 
     @Override
