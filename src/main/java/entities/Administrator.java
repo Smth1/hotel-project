@@ -1,7 +1,10 @@
 package entities;
 
-public final class Administrator extends Employee {
-    private final String telephoneNumber;
+import javax.persistence.Entity;
+
+@Entity
+public class Administrator extends Employee {
+    private String telephoneNumber;
 
     public Administrator(String name, int age, String telephoneNumber) {
         super(name, age);

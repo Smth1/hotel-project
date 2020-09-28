@@ -1,26 +1,46 @@
 package entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
-public final class CleaningReport {
-    private final Long id;
-    private final Administrator administrator;
-    private final Maid maid;
-    private final List<Room> rooms;
-    private final LocalDateTime creationDate;
+@Entity
+@Table(name = "cleaning_report")
+public class CleaningReport {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name="admin_id", nullable=false)
+    private  Administrator administrator;
+
+    @ManyToOne
+    @JoinColumn(name="maid_id", nullable=false)
+    private  Maid maid;
+
+    @OneToMany
+    private  List<Room> rooms;
+    private  LocalDateTime creationDate;
 
     public CleaningReport(Administrator administrator, Maid maid, List<Room> rooms) {
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        this.id = UUID.randomUUID();
         this.administrator = administrator;
         this.maid = maid;
         this.rooms = rooms;
         this.creationDate = LocalDateTime.now();
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

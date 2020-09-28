@@ -1,6 +1,9 @@
 package entities;
 
-public final class Porter extends Employee {
+import javax.persistence.Entity;
+
+@Entity
+public class Porter extends Employee {
 
     public Porter(String name, int age) {
         super(name, age);

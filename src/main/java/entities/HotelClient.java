@@ -1,15 +1,23 @@
 package entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class HotelClient {
-    private final Long clientId;
-    private final String name;
+@Entity
+public class HotelClient {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "client_id")
+    private UUID clientId;
+    private String name;
 
     public HotelClient(String name) {
         this.name = name;
-        this.clientId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    }
+
+    public UUID getClientId() {
+        return clientId;
     }
 
     public String getName() {

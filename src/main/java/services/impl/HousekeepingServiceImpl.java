@@ -1,26 +1,32 @@
-package services;
+package services.impl;
 
 import entities.Administrator;
 import entities.CleaningReport;
 import entities.Maid;
 import entities.Room;
 
-import java.util.ArrayList;
+import repository.CleaningReportRepository;
+import services.HouseKeepingService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
-public final class HousekeepingService {
-    private final RoomService roomService;
-    private final AdminService adminService;
-    private final List<CleaningReport> reports;
+@Service
+public class HousekeepingServiceImpl implements HouseKeepingService {
+    @Autowired
+    private RoomServiceImpl roomService;
 
-    public HousekeepingService(RoomService roomService, AdminService adminService) {
-        this.roomService = roomService;
-        this.adminService = adminService;
-        this.reports = new ArrayList<>();
+    @Autowired
+    private AdminServiceImpl adminService;
 
-        System.out.println("Created housekeeping Service");
-    }
+    @Autowired
+    private CleaningReportRepository cleaningReportRepository;
 
+
+    @Override
     public void cleanRooms() {
         List<Room> uncleanRooms =  roomService.getUncleanRooms();
         this.makeCleaningReport(uncleanRooms);
@@ -34,16 +40,20 @@ public final class HousekeepingService {
         System.out.println("All rooms are clean");
     }
 
+    @Transactional
+    @Override
     public void makeCleaningReport(List<Room> rooms) {
         Administrator admin = adminService.getAdmin();
         Maid maid = adminService.getRandomMaid();
         CleaningReport report =
                 new CleaningReport(admin, maid, rooms);
-        this.reports.add(report);
+        cleaningReportRepository.save(report);
     }
 
+    @Transactional
+    @Override
     public List<CleaningReport> getCleaningReports() {
-        return reports;
+        return cleaningReportRepository.findAll();
     }
 
     @Override

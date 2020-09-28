@@ -1,15 +1,23 @@
 package entities;
 
+import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-public final class Room {
-    private final List<HotelClient> homeClients;
-    private final int number;
-    private final int clientNumber;
+@Entity
+public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+    private int number;
+    private int clientNumber;
     private boolean isClean;
     private boolean isFree;
+    @OneToMany
+    private List<HotelClient> homeClients;
 
     public Room(int number, int clientNumber) {
         Random random = new Random();

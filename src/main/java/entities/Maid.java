@@ -1,8 +1,10 @@
 package entities;
 
+import javax.persistence.Entity;
 import java.util.Objects;
 
-public final class Maid extends Employee {
+@Entity
+public class Maid extends Employee {
 
     public Maid(String name, int age) {
         super(name, age);

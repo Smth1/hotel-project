@@ -1,21 +1,48 @@
 package entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-public final class HotelClientContract {
-    private final Long id;
-    private final Administrator hotelAdmin;
-    private final HotelClient client;
-    private final Cashier cashier;
-    private final Porter porter;
-    private final Room room;
-    private final LocalDateTime creationDate;
+@Entity
+@Table(name = "hotel_client_contract")
+public class HotelClientContract {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name="admin_id", nullable=false)
+    private Administrator hotelAdmin;
+
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable=false)
+    private HotelClient client;
+
+    @ManyToOne
+    @JoinColumn(name="cashier_id", nullable=false)
+    private Cashier cashier;
+
+    @ManyToOne
+    @JoinColumn(name="porter_id", nullable=false)
+    private Porter porter;
+
+    @ManyToOne
+    @JoinColumn(name="room_id", nullable=false)
+    private Room room;
+    private LocalDateTime creationDate;
     private LocalDateTime closingDate;
     private boolean isOpen;
 
-    HotelClientContract(Administrator hotelAdmin,
+    public HotelClientContract(Administrator hotelAdmin,
                         HotelClient client,
                         Room room,
                         Cashier cashier,
@@ -23,7 +50,6 @@ public final class HotelClientContract {
         DateTimeFormatter dataTimeFormatter =
                 DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.hotelAdmin = hotelAdmin;
         this.client = client;
         this.room = room;
@@ -75,14 +101,14 @@ public final class HotelClientContract {
         StringBuilder builder = new StringBuilder();
 
         builder.append("               ClientHotelContract                 \n");
-        builder.append(" contract id: " + id + "\n");
-        builder.append(" hotelAdmin: " + this.getHotelAdmin().getName() + " ");
+        builder.append(" contract id: ").append(id).append("\n");
+        builder.append(" hotelAdmin: ").append(this.getHotelAdmin().getName()).append(" ");
         builder.append(" telephoneNumber: " + this.getHotelAdmin().getTelephoneNumber() + "\n");
-        builder.append(" room number: " + this.getRoom().getNumber() + "\n");
+        builder.append(" room number: ").append(this.getRoom().getNumber()).append("\n");
         builder.append(" client: " + client + "\n");
         builder.append(" cashier at reception: " + this.getCashier().getName() + "\n");
-        builder.append(" attendant porter: " + this.getPorter().getName() + "\n");
-        builder.append(" creationDate: " + this.getCreationDate());
+        builder.append(" attendant porter: ").append(this.getPorter().getName()).append("\n");
+        builder.append(" creationDate: ").append(this.getCreationDate());
         if (!isOpen)
             builder.append(" " + " closingDate: " + this.getClosingDate());
 

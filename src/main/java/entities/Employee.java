@@ -1,20 +1,26 @@
 package entities;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import java.util.UUID;
 
+@MappedSuperclass
 public abstract class Employee{
-
-    private final Long id;
-    private final String name;
-    private final int age;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+    private String name;
+    private int age;
 
     public Employee(String name, int age){
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.name = name;
         this.age = age;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
