@@ -27,18 +27,15 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping
-    public @ResponseBody Administrator admin() {
-        return adminService.getAdmin();
-    }
+    @GetMapping(value = "/admin")
+    public ResponseEntity<Administrator> admin() {
+        try {
+            final Administrator admin = adminService.getAdmin();
 
-    @PostMapping
-    public @ResponseBody ResponseEntity<Void> createAdministration(@RequestBody AdministratorDTO admin) {
-        Administrator administrator = new Administrator(admin.getName(),
-                admin.getAge(), admin.getTelephoneNumber());
-        adminService.addEmployee(administrator);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(admin, HttpStatus.CREATED);
+        } catch (MissingResourceException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/maid")

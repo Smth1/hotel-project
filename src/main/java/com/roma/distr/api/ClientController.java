@@ -4,9 +4,8 @@ import com.roma.distr.entities.HotelClient;
 import com.roma.distr.entities.HotelClientContract;
 import com.roma.distr.entities.dto.ClientsDTO;
 import com.roma.distr.entities.dto.ContractsDTO;
-import com.roma.distr.entities.dto.HotelClientDTO;
 import com.roma.distr.services.ClientService;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

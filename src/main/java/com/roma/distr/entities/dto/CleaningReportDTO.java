@@ -6,6 +6,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CleaningReportDTO {
+public final class CleaningReportDTO {
     private final List<CleaningReport> reports;
 }

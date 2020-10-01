@@ -1,11 +1,9 @@
 package com.roma.distr.api;
 
 import com.roma.distr.entities.CleaningReport;
-import com.roma.distr.entities.HotelClientContract;
 import com.roma.distr.entities.dto.CleaningReportDTO;
-import com.roma.distr.entities.dto.ContractsDTO;
 import com.roma.distr.services.HouseKeepingService;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/householding")
+@RequestMapping("/housekeeping")
 public class HouseKeepingController {
     private HouseKeepingService houseKeepingService;
 

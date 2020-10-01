@@ -12,6 +12,6 @@ public interface ClientService {
     List<HotelClient> getClients();
     HotelClient getClientById(String id);
     List<HotelClientContract> getContracts();
-    void addContract(HotelClientContract contract); //not mapped by REST
+    void addContract(HotelClientContract contract);
     HotelClientContract getContractOfClient(HotelClient client);
 }
