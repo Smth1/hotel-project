@@ -30,6 +30,7 @@ public  class ReceptionServiceImpl implements ReceptionService {
 
         System.out.println(index);
         Room room = rooms.get(index);
+        client.setRoom(room);
 
         clientService.addClient(client);
 
@@ -58,7 +59,10 @@ public  class ReceptionServiceImpl implements ReceptionService {
     @Override
     public void moveOutClient(String clientId) {
         HotelClient client = this.clientService.getClientById(clientId);
+
         if (client != null) {
+            HotelClientContract contract = this.clientService.getContractOfClient(client);
+            this.clientService.removeContract(contract);
             this.clientService.removeClient(client);
             this.roomService.moveOutClient(client);
         }

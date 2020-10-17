@@ -1,9 +1,15 @@
 package com.roma.distr.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Porter extends Employee {
+
+    @OneToMany(mappedBy = "porter")
+    private List<HotelClientContract> contracts;
+
     public Porter() {
     }
 

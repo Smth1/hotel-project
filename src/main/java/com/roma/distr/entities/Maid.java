@@ -1,10 +1,15 @@
 package com.roma.distr.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Maid extends Employee {
+
+    @OneToMany(mappedBy = "maid")
+    private List<CleaningReport> cleaningReports;
 
     public Maid(String name, int age) {
         super(name, age);
@@ -16,8 +21,8 @@ public class Maid extends Employee {
     @Override
     public String toString() {
         return "Maid{" +
-                "id=" + super.getId() +
-                ", name='" + super.getName() + '\'' +
+                "name='" + super.getName() + '\'' +
+                ", age='" + super.getAge() + '\'' +
                 '}';
     }
 

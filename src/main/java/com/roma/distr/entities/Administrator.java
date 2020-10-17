@@ -1,10 +1,18 @@
 package com.roma.distr.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Administrator extends Employee {
     private String telephoneNumber;
+
+    @OneToMany(mappedBy = "administrator")
+    private List<CleaningReport> cleaningReports;
+
+    @OneToMany(mappedBy = "hotelAdmin")
+    private List<HotelClientContract> contracts;
 
     public Administrator() {
 

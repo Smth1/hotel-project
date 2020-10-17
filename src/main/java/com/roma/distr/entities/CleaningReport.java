@@ -21,8 +21,13 @@ public class CleaningReport {
     @JoinColumn(name="maid_id", nullable=false)
     private  Maid maid;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "room_report",
+            joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "report_id",
+                    referencedColumnName = "id"))
     private  List<Room> rooms;
+
     private  LocalDateTime creationDate;
 
     public CleaningReport() {

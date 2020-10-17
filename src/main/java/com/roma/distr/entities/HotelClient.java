@@ -1,6 +1,7 @@
 package com.roma.distr.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,12 +13,18 @@ public class HotelClient {
     private UUID clientId;
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name="room_id")
+    private Room room;
+
+    @OneToMany(mappedBy = "client")
+    private List<HotelClientContract> contracts;
+
     public HotelClient() {
     }
 
     public HotelClient(String name) {
         this.name = name;
-        clientId = UUID.randomUUID();
     }
 
     public UUID getClientId() {
@@ -26,6 +33,10 @@ public class HotelClient {
 
     public String getName() {
         return name;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override

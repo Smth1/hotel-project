@@ -1,7 +1,6 @@
 package com.roma.distr.entities;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,8 +15,15 @@ public class Room {
     private int clientNumber;
     private boolean isClean;
     private boolean isFree;
-    @OneToMany(cascade = { CascadeType.ALL })
-    private List<HotelClient> homeClients;
+
+    @OneToMany(mappedBy = "room")
+    private List<HotelClient> hotelClients;
+
+    @ManyToMany(mappedBy = "rooms")
+    private List<CleaningReport> reports;
+
+    @OneToMany(mappedBy = "room")
+    private List<HotelClientContract> contracts;
 
     public Room() {
     }
@@ -25,7 +31,7 @@ public class Room {
     public Room(int number, int clientNumber) {
         Random random = new Random();
 
-        homeClients = new ArrayList<>();
+        hotelClients = new ArrayList<>();
         this.number = number;
         this.clientNumber = clientNumber;
         this.isFree = true;
@@ -33,13 +39,13 @@ public class Room {
     }
 
     public void addClient(HotelClient client) {
-        homeClients.add(client);
-        if (homeClients.size() == this.clientNumber)
+        hotelClients.add(client);
+        if (hotelClients.size() == this.clientNumber)
             this.isFree = false;
     }
 
     public void removeClient(HotelClient client) {
-        homeClients.remove(client);
+        hotelClients.remove(client);
         this.isClean = false;
     }
 

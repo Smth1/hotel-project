@@ -1,7 +1,5 @@
 package com.roma.distr.entities;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,25 +13,28 @@ public class HotelClientContract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="admin_id", nullable=false)
     private Administrator hotelAdmin;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="client_id")
     private HotelClient client;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    private String clientName;
+
+    @ManyToOne
     @JoinColumn(name="cashier_id", nullable=false)
     private Cashier cashier;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="porter_id", nullable=false)
     private Porter porter;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="room_id", nullable=false)
     private Room room;
+
     private String creationDate;
     private String closingDate;
     private boolean isOpen;
@@ -52,11 +53,16 @@ public class HotelClientContract {
         this.id = UUID.randomUUID();
         this.hotelAdmin = hotelAdmin;
         this.client = client;
+        this.clientName = client.getName();
         this.room = room;
         this.cashier = cashier;
         this.porter = porter;
         this.creationDate = LocalDateTime.now().toString();
         isOpen = true;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Administrator getHotelAdmin() {
@@ -103,7 +109,7 @@ public class HotelClientContract {
         builder.append(" hotelAdmin: ").append(this.getHotelAdmin().getName()).append(" ");
         builder.append(" telephoneNumber: " + this.getHotelAdmin().getTelephoneNumber() + "\n");
         builder.append(" room number: ").append(this.getRoom().getNumber()).append("\n");
-        builder.append(" client: " + client + "\n");
+        builder.append(" client: " + clientName + "\n");
         builder.append(" cashier at reception: " + this.getCashier().getName() + "\n");
         builder.append(" attendant porter: ").append(this.getPorter().getName()).append("\n");
         builder.append(" creationDate: ").append(this.getCreationDate());
