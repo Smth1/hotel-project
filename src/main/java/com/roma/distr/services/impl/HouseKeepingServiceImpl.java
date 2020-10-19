@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class HousekeepingServiceImpl implements HouseKeepingService {
+public class HouseKeepingServiceImpl implements HouseKeepingService {
     @Autowired
     private RoomServiceImpl roomService;
 
