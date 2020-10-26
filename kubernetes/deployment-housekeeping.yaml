@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: housekeeping-service
+  labels:
+    app: housekeeping-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: housekeeping-service
+  template:
+    metadata:
+      labels:
+        app: housekeeping-service
+    spec:
+      containers:
+        - name: housekeeping-service
+          image: smth1/housekeeping-service:1.0
+          ports:
+            - containerPort: 8084

@@ -1,0 +1,8 @@
+kubectl apply -f deployment-admin.yaml,service-admin.yaml,deployment-client.yaml,service-client.yaml,\
+deployment-contract.yaml,service-contract.yaml,deployment-housekeeping.yaml,service-housekeeping.yaml,\
+deployment-room.yaml,service-room.yaml,deployment-mediator.yaml,service-mediator.yaml
+
+
+kubectl port-forward mediator-79dcd7b49f-4lr7j 8080:8080
+
+minikube --memory 6000 --cpus 4 start

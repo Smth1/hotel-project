@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contract-service
+  labels:
+    app: contract-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contract-service
+  template:
+    metadata:
+      labels:
+        app: contract-service
+    spec:
+      containers:
+        - name: contract-service
+          image: smth1/contract-service:1.0
+          ports:
+            - containerPort: 8083

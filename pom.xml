@@ -6,7 +6,19 @@
 
     <groupId>com.roma.distr</groupId>
     <artifactId>hotel-project</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+
+    <modules>
+        <module>hotel-mediator</module>
+        <module>admin-service</module>
+        <module>admin-service</module>
+        <module>client-service</module>
+        <module>contract-service</module>
+        <module>housekeeping-service</module>
+        <module>room-service</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -18,6 +30,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
     </parent>
+
 
     <dependencies>
         <dependency>
@@ -55,5 +68,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
