@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel-mediator
+  labels:
+    app: hotel-mediator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel-mediator
+  template:
+    metadata:
+      labels:
+        app: hotel-mediator
+    spec:
+      containers:
+        - name: hotel-mediator
+          image: smth1/hotel-mediator:1.0
+          ports:
+            - containerPort: 8080

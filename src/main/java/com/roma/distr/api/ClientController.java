@@ -1,57 +1,43 @@
 package com.roma.distr.api;
 
-import com.roma.distr.entities.HotelClient;
-import com.roma.distr.entities.HotelClientContract;
-import com.roma.distr.entities.dto.ClientsDTO;
-import com.roma.distr.entities.dto.ContractsDTO;
-import com.roma.distr.services.ClientService;
+import com.roma.distr.dto.ClientsDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.roma.distr.dto.HotelClientDTO;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ClientController {
-    private final ClientService clientService;
-
-    @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
+    private static final String URL = "http://client-service:8082";
+    private static final RestTemplate restTemplate = new RestTemplate();
+    private static final HttpHeaders headers = new HttpHeaders();
+    private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
 
     @GetMapping("/clients")
     public ResponseEntity<ClientsDTO> getAll() {
-        List<HotelClient> clients = clientService.getClients();
-        ClientsDTO clientsDTO = new ClientsDTO(clients);
+        ResponseEntity<ClientsDTO> responseEntity = restTemplate
+                .exchange(URL + "/clients", HttpMethod.GET, headersEntity, ClientsDTO.class);
 
-        return new ResponseEntity<>(clientsDTO, HttpStatus.OK);
+        return responseEntity;
     }
 
-    @GetMapping("/contracts")
-    public ResponseEntity<ContractsDTO> getAllContracts() {
-        List<HotelClientContract> contractList = clientService.getContracts();
-        ContractsDTO contractsDTO = new ContractsDTO(contractList);
+    @PostMapping("/client")
+    public ResponseEntity<Void> serveClient(@RequestBody HotelClientDTO hotelClientDTO) {
+        HttpEntity<HotelClientDTO> deliverClient = new HttpEntity<>(hotelClientDTO, headers);
 
-        return new ResponseEntity<>(contractsDTO, HttpStatus.OK);
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/client", HttpMethod.POST, deliverClient, Void.class);
+
+        return responseEntity;
     }
 
-    @GetMapping("/contract")
-    public ResponseEntity<HotelClientContract> getContractOfClient(
-            @RequestParam(value = "client") String clientName) {
-        List<HotelClient> clients = this.clientService.getClients();
-        HotelClientContract contract = null;
+    @DeleteMapping("/clients/{id}")
+    public ResponseEntity<Void> moveOutClient(@PathVariable(value = "id") String clientId) {
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/clients/" + clientId,
+                        HttpMethod.DELETE, null, Void.class);
 
-        for (HotelClient client : clients) {
-            if(client.getName().equals(clientName)) {
-                contract = this.clientService.getContractOfClient(client);
-            }
-        }
-        if (contract != null)
-            return new ResponseEntity<>(contract, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return responseEntity;
     }
 }

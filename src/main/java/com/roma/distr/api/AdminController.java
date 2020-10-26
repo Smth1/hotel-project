@@ -1,108 +1,91 @@
 package com.roma.distr.api;
 
-import com.roma.distr.entities.Administrator;
-import com.roma.distr.entities.Cashier;
-import com.roma.distr.entities.Maid;
-import com.roma.distr.entities.Porter;
-import com.roma.distr.entities.dto.AdministratorDTO;
-import com.roma.distr.entities.dto.CashierDTO;
-import com.roma.distr.entities.dto.MaidDTO;
-import com.roma.distr.entities.dto.PorterDTO;
-import org.springframework.web.bind.annotation.*;
-import com.roma.distr.services.AdminService;
-
-import org.springframework.http.HttpStatus;
+import com.roma.distr.dto.AdministratorDTO;
+import com.roma.distr.dto.CashierDTO;
+import com.roma.distr.dto.MaidDTO;
+import com.roma.distr.dto.PorterDTO;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.MissingResourceException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/administration")
 public class AdminController {
-    private final AdminService adminService;
-
-    @Autowired
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+    private static final String URL = "http://admin-service:8081";
+    private static final RestTemplate restTemplate = new RestTemplate();
+    private static final HttpHeaders headers = new HttpHeaders();
+    private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
 
     @GetMapping(value = "/admin")
-    public ResponseEntity<Administrator> admin() {
-        try {
-            final Administrator admin = adminService.getAdmin();
+    public ResponseEntity<AdministratorDTO> admin() {
+        ResponseEntity<AdministratorDTO> responseEntity = restTemplate
+                .exchange(URL + "/administration/admin", HttpMethod.GET, headersEntity, AdministratorDTO.class);
 
-            return new ResponseEntity<>(admin, HttpStatus.CREATED);
-        } catch (MissingResourceException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return responseEntity;
     }
 
     @GetMapping(value = "/maid")
-    public ResponseEntity<Maid> randomMaid() {
-        try {
-            final Maid maid = adminService.getRandomMaid();
+    public ResponseEntity<MaidDTO> randomMaid() {
+        ResponseEntity<MaidDTO> responseEntity = restTemplate
+                .exchange(URL + "/administration/maid", HttpMethod.GET, headersEntity, MaidDTO.class);
 
-            return new ResponseEntity<>(maid, HttpStatus.CREATED);
-        } catch (MissingResourceException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return responseEntity;
     }
 
     @GetMapping(value = "/cashier")
-    public ResponseEntity<Cashier> randomCashier() {
-        try {
-            final Cashier cashier = adminService.getRandomCashier();
+    public ResponseEntity<CashierDTO> randomCashier() {
+        ResponseEntity<CashierDTO> responseEntity = restTemplate
+                .exchange(URL + "/administration/cashier", HttpMethod.GET, headersEntity, CashierDTO.class);
 
-            return new ResponseEntity<>(cashier, HttpStatus.CREATED);
-        } catch (MissingResourceException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return responseEntity;
     }
 
     @GetMapping(value = "/porter")
-    public ResponseEntity<Porter> randomPorter() {
-        try {
-            final Porter porter = adminService.getRandomPorter();
+    public ResponseEntity<PorterDTO> randomPorter() {
+        ResponseEntity<PorterDTO> responseEntity = restTemplate
+                .exchange(URL + "/administration/porter", HttpMethod.GET, headersEntity, PorterDTO.class);
 
-            return new ResponseEntity<>(porter, HttpStatus.CREATED);
-        } catch (MissingResourceException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return responseEntity;
     }
 
-
+// ----------------------------------------------------------------------
     @PostMapping("/admin")
     public ResponseEntity<Void> addAdmin(@RequestBody AdministratorDTO admin) {
-        Administrator administrator = new Administrator(admin.getName(),
-                admin.getAge(), admin.getTelephoneNumber());
-        adminService.addEmployee(administrator);
+        HttpEntity<AdministratorDTO> deliverObject = new HttpEntity<>(admin, headers);
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/administration/admin", HttpMethod.POST, deliverObject, Void.class);
 
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(responseEntity.getStatusCode());
     }
 
     @PostMapping("/maid")
-    public ResponseEntity<Maid> addMaid(@RequestBody MaidDTO maidDTO) {
-        Maid maid = new Maid(maidDTO.getName(), maidDTO.getAge());
-        adminService.addEmployee(maid);
+    public ResponseEntity<Void> addMaid(@RequestBody MaidDTO maidDTO) {
+        HttpEntity<MaidDTO> deliverObjectMaid = new HttpEntity<>(maidDTO, headers);
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/administration/maid", HttpMethod.POST, deliverObjectMaid, Void.class);
 
-        return new ResponseEntity<>( HttpStatus.OK);
+        return responseEntity;
     }
 
     @PostMapping("/cashier")
-    public ResponseEntity<Cashier> addCashier(@RequestBody CashierDTO cashierDTO) {
-        Cashier cashier = new Cashier(cashierDTO.getName(), cashierDTO.getAge());
-        adminService.addEmployee(cashier);
+    public ResponseEntity<Void> addCashier(@RequestBody CashierDTO cashierDTO) {
+        HttpEntity<CashierDTO> deliverObjectCashier = new HttpEntity<>(cashierDTO, headers);
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/administration/cashier", HttpMethod.POST, deliverObjectCashier, Void.class);
 
-        return new ResponseEntity<>( HttpStatus.OK);
+        return responseEntity;
     }
 
     @PostMapping("/porter")
-    public ResponseEntity<Porter> addPorter(@RequestBody PorterDTO porterDTO) {
-        Porter porter = new Porter(porterDTO.getName(), porterDTO.getAge());
-        adminService.addEmployee(porter);
+    public ResponseEntity<Void> addPorter(@RequestBody PorterDTO porterDTO) {
+        HttpEntity<PorterDTO> deliverObjectPorter = new HttpEntity<>(porterDTO, headers);
+        ResponseEntity<Void> responseEntity = restTemplate
+                .exchange(URL + "/administration/porter", HttpMethod.POST, deliverObjectPorter, Void.class);
 
-        return new ResponseEntity<>( HttpStatus.OK);
+        return responseEntity;
     }
 
 }
