@@ -38,7 +38,8 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void concludeContract(UUID client, UUID room) {
-        String URL = "http://admin-service:8081";
+        //String URL = "http://admin-service:8081";
+        String URL = "http://localhost:8081";
 
         ResponseEntity<String> response3 = restTemplate
                 .exchange(URL + "/administration/admin", HttpMethod.GET, headersEntity, String.class);

@@ -22,7 +22,6 @@ import java.util.*;
 public class ClientServiceImpl implements ClientService {
     @Autowired
     private HotelClientRepository hotelClientRepository;
-
     private RestTemplate restTemplate = new RestTemplate();
     private HttpHeaders headers = new HttpHeaders();
     private HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
@@ -89,14 +88,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private void concludeContract(HotelClient client, UUID roomId) {
-        String URL = "http://contract-service:8083";
+        //String URL = "http://contract-service:8083";
+        String URL = "http://localhost:8083";
+
         ResponseEntity<String> response = restTemplate
                 .exchange(URL + "/contract?" + "clientId=" + client.getClientId() + "&roomId=" + roomId,
                         HttpMethod.POST, headersEntity, String.class);
     }
 
     private List<UUID> getAvailableRooms() {
-        String URL = "http://room-service:8085";
+        //String URL = "http://room-service:8085";
+        String URL = "http://localhost:8085";
+
         List<UUID> rooms = new ArrayList<>();
         ResponseEntity<String> response3 = restTemplate
                 .exchange(URL + "/room-service/rooms", HttpMethod.GET, headersEntity, String.class);
@@ -115,7 +118,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private UUID getContractOfClient(UUID clientId) {
-        String URL = "http://contract-service:8083";
+        //String URL = "http://contract-service:8083";
+        String URL = "http://localhost:8083";
 
         ResponseEntity<String> response = restTemplate
                 .exchange(URL + "/contract?clientId=" + clientId, HttpMethod.GET, headersEntity, String.class);
@@ -129,7 +133,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private void removeContract(UUID contractId) {
-        String URL = "http://contract-service:8083";
+        //String URL = "http://contract-service:8083";
+        String URL = "http://localhost:8083";
+
         ResponseEntity<String> response = restTemplate
                 .exchange(URL + "/contracts/" + contractId ,
                         HttpMethod.DELETE, headersEntity, String.class);

@@ -1,4 +1,4 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.dto.ContractsDTO;
 import com.roma.distr.dto.HotelClientContractDTO;
@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ContractController {
-    private static final String URL = "http://contract-service:8083";
+    //private static final String URL = "http://contract-service:8083";
+    private static final String URL = "http://localhost:8083";
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final HttpHeaders headers = new HttpHeaders();
     private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);

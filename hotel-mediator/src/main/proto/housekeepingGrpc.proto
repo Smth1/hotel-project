@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message CleaningReportTransfer {
+  string id = 1;
+  string adminId = 2;
+  string maidId = 3;
+  string rooms = 4;
+  string creationDate = 5;
+}
+
+message ReportsRequestGet {
+  string request = 1;
+}
+
+message ReportsResponseGet {
+  repeated CleaningReportTransfer cleaningReportTransfer = 1;
+}
+
+message CleanRequest {
+  string requestString = 1;
+}
+
+message CleanResponse {
+  string responseString = 1;
+}
+
+
+service HouseKeepingService {
+  rpc getAllReports(ReportsRequestGet) returns (ReportsResponseGet) {};
+  rpc clean(CleanRequest) returns (CleanResponse) {};
+}

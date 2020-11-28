@@ -1,15 +1,16 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.dto.ClientsDTO;
-
 import com.roma.distr.dto.HotelClientDTO;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ClientController {
-    private static final String URL = "http://client-service:8082";
+    //private static final String URL = "http://client-service:8082";
+    private static final String URL = "http://localhost:8082";
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final HttpHeaders headers = new HttpHeaders();
     private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);

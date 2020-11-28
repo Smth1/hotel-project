@@ -1,4 +1,4 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.dto.AdministratorDTO;
 import com.roma.distr.dto.CashierDTO;
@@ -14,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/administration")
 public class AdminController {
-    private static final String URL = "http://admin-service:8081";
+    //private static final String URL = "http://admin-service:8081";
+    private static final String URL = "http://localhost:8081";
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final HttpHeaders headers = new HttpHeaders();
     private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message RoomTransfer {
+  int32 number = 1;
+  int32 clientNumber = 2;
+}
+
+message RoomRequestAdd {
+  RoomTransfer room = 1;
+}
+
+message RoomResponseAdd {
+  string response = 1;
+}
+
+message RoomsRequestGet {
+  string request = 1;
+}
+
+message RoomsResponseGet {
+  repeated RoomTransfer roomsTransfer = 1;
+}
+
+service RoomService {
+  rpc addRoom(RoomRequestAdd) returns (RoomResponseAdd) {};
+  rpc getAvailableRooms(RoomsRequestGet) returns (RoomsResponseGet) {};
+}

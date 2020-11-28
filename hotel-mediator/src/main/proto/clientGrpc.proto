@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message ClientTransfer {
+  string id = 1;
+  string name = 2;
+}
+
+message ClientRequestAdd {
+  ClientTransfer client = 1;
+}
+
+message ClientResponseAdd {
+  string response = 1;
+}
+
+
+message ClientsRequestGet {
+  string request = 1;
+}
+
+message ClientsResponseGet {
+  repeated ClientTransfer clientsTransfer = 1;
+}
+
+message ClientRequestDelete {
+  string uuid = 1;
+}
+
+message ClientResponseDelete {
+  string response = 1;
+}
+
+service ClientService {
+  rpc addClient(ClientRequestAdd) returns (ClientResponseAdd) {};
+  rpc getClients(ClientsRequestGet) returns (ClientsResponseGet) {};
+  rpc deleteClient(ClientRequestDelete) returns (ClientResponseDelete) {};
+}

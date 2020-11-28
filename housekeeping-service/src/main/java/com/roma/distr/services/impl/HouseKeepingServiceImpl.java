@@ -50,7 +50,8 @@ public class HouseKeepingServiceImpl implements HouseKeepingService {
 
     @Override
     public void makeCleaningReport(List<UUID> rooms) {
-        String URL = "http://admin-service:8081";
+        //String URL = "http://admin-service:8081";
+        String URL = "http://localhost:8081";
 
         ResponseEntity<String> response3 = restTemplate
                 .exchange(URL + "/administration/admin", HttpMethod.GET, headersEntity, String.class);
@@ -76,7 +77,9 @@ public class HouseKeepingServiceImpl implements HouseKeepingService {
     }
 
     private List<UUID> getUncleanRooms() {
-        String URL = "http://room-service:8085";
+        //String URL = "http://room-service:8085";
+        String URL = "http://localhost:8085";
+
         List<UUID> rooms = new ArrayList<>();
         ResponseEntity<String> response3 = restTemplate
                 .exchange(URL + "/room-service/unclean-rooms", HttpMethod.GET, headersEntity, String.class);
@@ -91,7 +94,9 @@ public class HouseKeepingServiceImpl implements HouseKeepingService {
     }
 
     private void setClean(UUID roomId) {
-        String URL = "http://room-service:8085";
+        //String URL = "http://room-service:8085";
+        String URL = "http://localhost:8085";
+
         ResponseEntity<Void> responseEntity = restTemplate
                 .exchange(URL + "/room-service/make-clean/" + roomId.toString(), HttpMethod.PUT, null, Void.class);
     }

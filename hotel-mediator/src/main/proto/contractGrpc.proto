@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message ContractTransfer {
+  string id = 1;
+  string hotelAdmin = 2;
+  string client = 3;
+  string cashier = 4;
+  string porter = 5;
+  string room = 6;
+  string creationDate = 7;
+  string closingDate = 8;
+  bool isOpen = 9;
+}
+
+message ContractsRequestGet {
+  string request = 1;
+}
+
+message ContractsResponseGet {
+  repeated ContractTransfer contractsTransfer = 1;
+}
+
+message ContractRequestGet {
+  string clientId = 1;
+}
+
+message ContractResponseGet {
+  ContractTransfer contractTransfer = 1;
+}
+
+
+service ContractService {
+  rpc getAllContracts(ContractsRequestGet) returns (ContractsResponseGet) {};
+  rpc getContractOfClient(ContractRequestGet) returns (ContractResponseGet) {};
+}

@@ -1,4 +1,4 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.dto.RoomDTO;
 import com.roma.distr.dto.RoomsDTO;
@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class RoomController {
-    private static final String URL = "http://room-service:8085";
+    //private static final String URL = "http://room-service:8085";
+    private static final String URL = "http://localhost:8085";
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final HttpHeaders headers = new HttpHeaders();
     private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);

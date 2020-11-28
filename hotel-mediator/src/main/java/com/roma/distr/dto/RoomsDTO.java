@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class RoomsDTO {
-    private List<RoomDTO> roomDTOList;
+    private List<RoomDTO> rooms;
 }
