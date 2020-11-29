@@ -45,7 +45,6 @@ public class ContractServiceImpl extends ContractServiceGrpc.ContractServiceImpl
                 .setPorter(el.getPorter().toString())
                 .setRoom(el.getRoom().toString())
                 .setCreationDate(el.getCreationDate())
-                .setClosingDate(el.getClosingDate())
                 .setIsOpen(el.isOpen())
                 .build()).collect(Collectors.toList());
 

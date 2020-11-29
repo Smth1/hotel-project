@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,13 +28,12 @@ public class ClientServiceImpl extends ClientServiceGrpc.ClientServiceImplBase {
     public void addClient(ClientRequestAdd request, StreamObserver<ClientResponseAdd> responseObserver) {
         ClientTransfer clientTransfer = request.getClient();
         HotelClientDTO hotelClientDTO = HotelClientDTO.builder()
-                .clientId(UUID.fromString(clientTransfer.getId()))
                 .clientName(clientTransfer.getName())
                 .build();
 
         HttpEntity<HotelClientDTO> hotelClientDTOEntity = new HttpEntity<>(hotelClientDTO);
         ResponseEntity<Void> responseEntity = restTemplate
-                .exchange(URL + "/administration/admin", HttpMethod.POST, hotelClientDTOEntity, Void.class);
+                .exchange(URL + "/client", HttpMethod.POST, hotelClientDTOEntity, Void.class);
 
         ClientResponseAdd responseAdd = ClientResponseAdd.newBuilder()
                 .setResponse("success")

@@ -1,14 +1,15 @@
 package com.roma.distr.api.grpc;
 
-import com.roma.distr.dto.MaidDTO;
 import com.roma.distr.dto.PorterDTO;
 import io.grpc.stub.StreamObserver;
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+@GRpcService
 public class PorterService extends PorterServiceGrpc.PorterServiceImplBase {
     //private static final String URL = "http://admin-service:8081";
     private static final String URL = "http://localhost:8081";

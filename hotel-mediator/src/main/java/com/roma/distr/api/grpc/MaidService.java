@@ -1,14 +1,15 @@
 package com.roma.distr.api.grpc;
 
-import com.roma.distr.dto.CashierDTO;
 import com.roma.distr.dto.MaidDTO;
 import io.grpc.stub.StreamObserver;
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+@GRpcService
 public class MaidService extends MaidServiceGrpc.MaidServiceImplBase {
     //private static final String URL = "http://admin-service:8081";
     private static final String URL = "http://localhost:8081";
