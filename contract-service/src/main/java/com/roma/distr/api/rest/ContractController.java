@@ -1,8 +1,8 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.entities.HotelClientContract;
 import com.roma.distr.entities.dto.ContractsDTO;
-import com.roma.distr.services.ContractService;
+import com.roma.distr.services.rest.ContractService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

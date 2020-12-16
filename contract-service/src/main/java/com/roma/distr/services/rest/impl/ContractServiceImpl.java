@@ -1,8 +1,8 @@
-package com.roma.distr.services.impl;
+package com.roma.distr.services.rest.impl;
 
 import com.roma.distr.entities.HotelClientContract;
 import com.roma.distr.repository.HotelClientContractRepository;
-import com.roma.distr.services.ContractService;
+import com.roma.distr.services.rest.ContractService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -50,7 +50,7 @@ public class ContractServiceImpl implements ContractService {
         JSONObject cashier = new JSONObject(Objects.requireNonNull(response3.getBody()));
 
         response3 = restTemplate
-                .exchange(URL + "/administration/cashier", HttpMethod.GET, headersEntity, String.class);
+                .exchange(URL + "/administration/porter", HttpMethod.GET, headersEntity, String.class);
         JSONObject porter = new JSONObject(Objects.requireNonNull(response3.getBody()));
 
         UUID adminId = UUID.fromString(admin.getString("id"));

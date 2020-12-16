@@ -1,38 +1,32 @@
 package com.roma.distr.api.grpc;
 
-import com.roma.distr.dto.AdministratorDTO;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @GRpcService
 public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
-    //private static final String URL = "http://admin-service:8081";
-    private static final String URL = "http://localhost:8081";
+    private final String URL = "localhost";
+    private final ManagedChannel administrationManagedChannel;
+    private final AdminServiceGrpc.AdminServiceBlockingStub adminServiceBlockingStub;
 
-    private static final RestTemplate restTemplate = new RestTemplate();
-    private static final HttpHeaders headers = new HttpHeaders();
-    private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
+    public AdminServiceImpl() {
+        this.administrationManagedChannel = ManagedChannelBuilder.forAddress(URL, 6561)
+                .usePlaintext().build();
+        this.adminServiceBlockingStub = AdminServiceGrpc.newBlockingStub(administrationManagedChannel);
+    }
 
     @Override
     public void getAdministrator(AdministratorRequestGet request, StreamObserver<AdministratorResponseGet> responseObserver) {
         String administratorRequest = request.getAdministratorRequest();
-        ResponseEntity<AdministratorDTO> responseEntity = restTemplate
-                .exchange(URL + "/administration/admin", HttpMethod.GET, headersEntity, AdministratorDTO.class);
-        AdministratorDTO body = responseEntity.getBody();
+        System.out.println("administratorRequest = " + administratorRequest);
 
-        assert body != null;
-        AdministratorTransfer transfer = AdministratorTransfer.newBuilder()
-                .setId(body.getId())
-                .setName(body.getName())
-                .setAge(body.getAge())
-                .setTelephoneNumber(body.getTelephoneNumber())
-                .build();
+        AdministratorResponseGet get_administrator = this.adminServiceBlockingStub.getAdministrator(AdministratorRequestGet.newBuilder()
+                .setAdministratorRequest("Get administrator")
+                .build());
+
+        AdministratorTransfer transfer = get_administrator.getResult();
 
         AdministratorResponseGet responseGet = AdministratorResponseGet.newBuilder()
                 .setResult(transfer)
@@ -45,18 +39,11 @@ public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
     @Override
     public void addAdministrator(AdministratorRequestAdd request, StreamObserver<AdministratorResponseAdd> responseObserver) {
         AdministratorTransfer administratorTransfer = request.getAdmin();
-        AdministratorDTO administratorDTO = AdministratorDTO.builder()
-                .age(administratorTransfer.getAge())
-                .name(administratorTransfer.getName())
-                .telephoneNumber(administratorTransfer.getTelephoneNumber())
-                .build();
-        HttpEntity<AdministratorDTO> administratorDTOEntity = new HttpEntity<>(administratorDTO);
-        ResponseEntity<Void> responseEntity = restTemplate
-                .exchange(URL + "/administration/admin", HttpMethod.POST, administratorDTOEntity, Void.class);
 
-        AdministratorResponseAdd responseAdd = AdministratorResponseAdd.newBuilder()
-                .setResponse("success")
-                .build();
+        AdministratorResponseAdd responseAdd = this.adminServiceBlockingStub.addAdministrator(
+                AdministratorRequestAdd.newBuilder()
+                        .setAdmin(administratorTransfer)
+                        .build());
 
         responseObserver.onNext(responseAdd);
         responseObserver.onCompleted();

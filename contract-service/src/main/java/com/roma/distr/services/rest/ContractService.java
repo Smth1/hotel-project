@@ -1,4 +1,4 @@
-package com.roma.distr.services;
+package com.roma.distr.services.rest;
 
 import com.roma.distr.entities.HotelClientContract;
 

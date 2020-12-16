@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message RoomTransfer {
+  string id = 1;
+  int32 number = 2;
+  int32 clientNumber = 3;
+  bool isClean = 4;
+  bool isFree = 5;
+}
+
+message RoomRequestAdd {
+  RoomTransfer room = 1;
+}
+
+message RoomResponseAdd {
+  string response = 1;
+}
+
+message RoomsRequestGet {
+  string request = 1;
+}
+
+message RoomsResponseGet {
+  repeated RoomTransfer roomsTransfer = 1;
+}
+
+message MakeCleanRequest {
+  string roomId = 1;
+}
+
+message MakeCleanResponse {
+  string response = 1;
+}
+
+service RoomService {
+  rpc addRoom(RoomRequestAdd) returns (RoomResponseAdd) {};
+  rpc getAvailableRooms(RoomsRequestGet) returns (RoomsResponseGet) {};
+  rpc getUncleanRooms(RoomsRequestGet) returns (RoomsResponseGet) {};
+  rpc makeClean(MakeCleanRequest) returns (MakeCleanResponse) {};
+}

@@ -1,8 +1,8 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.entities.CleaningReport;
 import com.roma.distr.entities.dto.CleaningReportsDTO;
-import com.roma.distr.services.HouseKeepingService;
+import com.roma.distr.services.rest.HouseKeepingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

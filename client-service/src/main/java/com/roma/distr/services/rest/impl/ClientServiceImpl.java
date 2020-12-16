@@ -1,9 +1,9 @@
-package com.roma.distr.services.impl;
+package com.roma.distr.services.rest.impl;
 
 import com.roma.distr.entities.HotelClient;
 
 import com.roma.distr.repository.HotelClientRepository;
-import com.roma.distr.services.ClientService;
+import com.roma.distr.services.rest.ClientService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -80,7 +80,6 @@ public class ClientServiceImpl implements ClientService {
             UUID contract = this.getContractOfClient(client.getClientId());
             this.removeContract(contract);
             this.removeClient(client);
-            //this.moveOutClientFromRoom(client.getClientId());
         }
         else {
             System.out.println("Client id " + clientId + " not found.");

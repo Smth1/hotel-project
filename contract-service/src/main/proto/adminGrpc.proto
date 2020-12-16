@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+option java_package = "com.roma.distr.api.grpc";
+option java_multiple_files=true;
+
+message AdministratorTransfer {
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+  string telephoneNumber = 4;
+}
+
+message AdministratorRequestGet {
+  string administratorRequest = 1;
+}
+
+message AdministratorResponseGet {
+  AdministratorTransfer result = 1;
+}
+
+message AdministratorRequestAdd {
+  AdministratorTransfer admin = 1;
+}
+
+message AdministratorResponseAdd {
+  string response = 1;
+}
+
+service AdminService {
+  rpc getAdministrator(AdministratorRequestGet) returns (AdministratorResponseGet) {};
+  rpc addAdministrator(AdministratorRequestAdd) returns (AdministratorResponseAdd) {};
+}
+
+message CashierTransfer {
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message CashierRequestGet {
+  string cashierRequest = 1;
+}
+
+message CashierResponseGet {
+  CashierTransfer result = 1;
+}
+
+message CashierRequestAdd {
+  CashierTransfer cashier = 1;
+}
+
+message CashierResponseAdd {
+  string response = 1;
+}
+
+service CashierService {
+  rpc getCashier(CashierRequestGet) returns (CashierResponseGet) {};
+  rpc addCashier(CashierRequestAdd) returns (CashierResponseAdd) {};
+}
+
+message MaidTransfer {
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message MaidRequestGet {
+  string maidRequest = 1;
+}
+
+message MaidResponseGet {
+  MaidTransfer result = 1;
+}
+
+message MaidRequestAdd {
+  MaidTransfer maid = 1;
+}
+
+message MaidResponseAdd {
+  string response = 1;
+}
+
+service MaidService {
+  rpc getMaid(MaidRequestGet) returns (MaidResponseGet) {};
+  rpc addMaid(MaidRequestAdd) returns (MaidResponseAdd) {};
+}
+
+
+message PorterTransfer {
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message PorterRequestGet {
+  string porterRequest = 1;
+}
+
+message PorterResponseGet {
+  PorterTransfer result = 1;
+}
+
+message PorterRequestAdd {
+  PorterTransfer porter = 1;
+}
+
+message PorterResponseAdd {
+  string response = 1;
+}
+
+service PorterService {
+  rpc getPorter(PorterRequestGet) returns (PorterResponseGet) {};
+  rpc addPorter(PorterRequestAdd) returns (PorterResponseAdd) {};
+}

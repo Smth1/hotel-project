@@ -1,10 +1,10 @@
-package com.roma.distr.services;
+package com.roma.distr.services.grpc;
 
 import com.roma.distr.entities.HotelClient;
 
 import java.util.List;
 
-public interface ClientService {
+public interface GrpcClientService {
     List<HotelClient> getClients();
 
     HotelClient getClientById(String id);

@@ -1,4 +1,4 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.entities.Administrator;
 import com.roma.distr.entities.Cashier;

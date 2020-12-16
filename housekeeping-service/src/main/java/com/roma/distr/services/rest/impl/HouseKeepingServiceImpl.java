@@ -1,9 +1,9 @@
-package com.roma.distr.services.impl;
+package com.roma.distr.services.rest.impl;
 
 import com.roma.distr.entities.CleaningReport;
 
 import com.roma.distr.repository.CleaningReportRepository;
-import com.roma.distr.services.HouseKeepingService;
+import com.roma.distr.services.rest.HouseKeepingService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

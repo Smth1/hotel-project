@@ -87,6 +87,10 @@ public class HotelClientContract {
         this.closingDate = LocalDateTime.now().toString();
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

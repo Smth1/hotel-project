@@ -1,9 +1,9 @@
-package com.roma.distr.api;
+package com.roma.distr.api.rest;
 
 import com.roma.distr.entities.HotelClient;
 import com.roma.distr.entities.dto.ClientsDTO;
 import com.roma.distr.entities.dto.HotelClientDTO;
-import com.roma.distr.services.ClientService;
+import com.roma.distr.services.rest.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
