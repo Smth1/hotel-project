@@ -3,6 +3,8 @@ package com.roma.distr.api.rest;
 import com.roma.distr.dto.RoomDTO;
 import com.roma.distr.dto.RoomsDTO;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,6 +23,15 @@ public class RoomController {
     private static final HttpHeaders headers = new HttpHeaders();
     private static final HttpEntity<Object> headersEntity = new HttpEntity<>(headers);
 
+    private final String exchange="exchange";
+    private final String routingKey="mediator.to.room";
+    private final RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    public RoomController(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
     @GetMapping("/rooms")
     public ResponseEntity<RoomsDTO> getAvailableRooms() {
         ResponseEntity<RoomsDTO> responseEntity = restTemplate
@@ -36,5 +47,12 @@ public class RoomController {
                 .exchange(URL + "/room-service/room", HttpMethod.POST, deliverRoom, Void.class);
 
         return responseEntity;
+    }
+
+    @PostMapping("/rabbitmq/room")
+    public ResponseEntity<Void> addRoomRabbitmq(@RequestBody RoomDTO roomDTO) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, roomDTO);
+
+        return ResponseEntity.ok().build();
     }
 }
